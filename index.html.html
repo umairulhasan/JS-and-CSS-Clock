@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>JS + CSS Clock</title>
-  <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body>
-
-
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS + CSS Clock</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
     <div class="clock">
       <div class="clock-face">
         <div class="hand hour-hand"></div>
@@ -16,60 +14,82 @@
       </div>
     </div>
 
+    <style>
+      html {
+        background: #018ded url(https://unsplash.it/1500/1000?image=881&blur=5);
+        background-size: cover;
+        font-family: "helvetica neue";
+        text-align: center;
+        font-size: 10px;
+      }
 
-  <style>
-    html {
-      background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
-      background-size: cover;
-      font-family: 'helvetica neue';
-      text-align: center;
-      font-size: 10px;
-    }
+      body {
+        margin: 0;
+        font-size: 2rem;
+        display: flex;
+        flex: 1;
+        min-height: 100vh;
+        align-items: center;
+      }
 
-    body {
-      margin: 0;
-      font-size: 2rem;
-      display: flex;
-      flex: 1;
-      min-height: 100vh;
-      align-items: center;
-    }
+      .clock {
+        width: 30rem;
+        height: 30rem;
+        border: 20px solid white;
+        border-radius: 50%;
+        margin: 50px auto;
+        position: relative;
+        padding: 2rem;
+        box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1), inset 0 0 0 3px #efefef,
+          inset 0 0 10px black, 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      /* stick of clocks set hight and width   */
+      .clock-face {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform: translateY(
+          -3px
+        ); /* account for the height of the clock hands */
+      }
+      /* stick of clocks  */
+      .hand {
+        width: 50%;
+        height: 6px;
+        background: black;
+        position: absolute;
+        top: 50%;
+        transform-origin: 100%; /* to set the clock stick in to center by defuly its 50  */
+        transform: rotate(90deg);
+        transition: all 0.05s; /* now it ill rotate 0.05 secount degree change */
+        transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1) ;}
+    </style>
 
-    .clock {
-      width: 30rem;
-      height: 30rem;
-      border: 20px solid white;
-      border-radius: 50%;
-      margin: 50px auto;
-      position: relative;
-      padding: 2rem;
-      box-shadow:
-        0 0 0 4px rgba(0,0,0,0.1),
-        inset 0 0 0 3px #EFEFEF,
-        inset 0 0 10px black,
-        0 0 10px rgba(0,0,0,0.2);
-    }
+    <script>
 
-    .clock-face {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform: translateY(-3px); /* account for the height of the clock hands */
-    }
-
-    .hand {
-      width: 50%;
-      height: 6px;
-      background: black;
-      position: absolute;
-      top: 50%;
-    }
-
-  </style>
-
-  <script>
+      const accessSecoundHand = document.querySelector(`.second-hand`) // for access secound-hand class
+      const accessMinHand = document.querySelector(`.min-hand`)  // for access secound-hand class
+      const accessHoursHand = document.querySelector(`.hour-hand`) // for access secound-hand class
 
 
-  </script>
-</body>
+      function setDate() {
+
+        // for Secounds
+        const now = new Date();
+        const secound = now.getSeconds(); // gives u the secound of current time 1 to 60  
+        const convertSecountToDegrees = ((secound / 60) * 360 ) + 90 ;
+        accessSecoundHand.style.transform = `rotate(${convertSecountToDegrees}deg)`;
+
+// for Minuters
+        const Minutes = now.getMinutes(); // gives u the secound of current time 1 to 60  
+        const convertMinsToDegrees = ((Minutes / 60) * 360 ) +((secound/60)*6) + 90 ;
+        accessMinHand.style.transform = `rotate(${convertMinsToDegrees}deg)`;
+// for hours 
+const Hours = now.getMinutes(); // gives u the secound of current time 1 to 60  
+        const convertHoursToDegrees = ( (Minutes / 12) * 360 ) + + ((Minutes/60)*30) + 90 ;
+        accessHoursHand.style.transform = `rotate(${convertHoursToDegrees}deg)`;
+      }
+      setInterval(setDate,1000);   /*  for run the function every 1 sec*/
+    </script>
+  </body>
 </html>
